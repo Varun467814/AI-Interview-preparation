@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interview Prep AI — Results &amp; Analysis</title>
+  <meta name="description" content="View your personalized skill gap analysis and AI-generated interview questions." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── Loading overlay (shown while processing) ── -->
+  <div id="loading-overlay">
+    <div class="loading-ring"></div>
+    <div class="loading-text">🤖 AI Agents are working on your profile…</div>
+    <div class="loading-steps" id="loading-step-text">Parsing your resume…</div>
+  </div>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">🎯</span>
+      Interview Prep AI
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="results.html">Results</a>
+      <span class="nav-badge">AI Powered</span>
+    </div>
+  </nav>
+
+  <!-- ── Results hero ── -->
+  <section class="hero" style="padding:50px 32px 44px;">
+    <div class="hero-badge" id="readiness-badge">📊 Analysis Complete</div>
+    <h1 style="font-size:clamp(1.4rem,3vw,2.2rem);">Your Interview Readiness Report</h1>
+    <p id="hero-role" style="margin-bottom:0;">Loading your results…</p>
+  </section>
+
+  <!-- ── Main content ── -->
+  <main class="container-wide" id="results-content" style="display:none;">
+
+    <!-- Back button -->
+    <button class="btn-back" onclick="window.location.href='index.html'">← Back to Upload</button>
+
+    <!-- Summary bar -->
+    <div class="summary-bar fade-up">
+      <div class="summary-stat">
+        <div class="s-num" id="sum-match">—</div>
+        <div class="s-lbl">Match Score</div>
+      </div>
+      <div class="summary-stat">
+        <div class="s-num" id="sum-matching">—</div>
+        <div class="s-lbl">Matching Skills</div>
+      </div>
+      <div class="summary-stat">
+        <div class="s-num" id="sum-missing">—</div>
+        <div class="s-lbl">Missing Skills</div>
+      </div>
+      <div class="summary-stat">
+        <div class="s-num" id="sum-questions">—</div>
+        <div class="s-lbl">Questions Generated</div>
+      </div>
+      <div style="margin-left:auto;">
+        <button class="btn-outline" id="download-btn">⬇️ Download Report</button>
+      </div>
+    </div>
+
+    <!-- 2-column grid -->
+    <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:24px;align-items:start;">
+
+      <!-- Left column -->
+      <div>
+
+        <!-- Candidate Profile -->
+        <div class="profile-card fade-up">
+          <div class="profile-header">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+              <h2 id="p-name">—</h2>
+              <p id="p-email">—</p>
+              <div class="profile-meta" id="p-meta"></div>
+            </div>
+          </div>
+          <div class="profile-body">
+            <div class="chip-group" id="p-skills"></div>
+          </div>
+        </div>
+
+        <!-- JD Details -->
+        <div class="section-card fade-up">
+          <h3>📋 Job Description Analysis</h3>
+          <p class="section-sub" id="jd-role-sub"></p>
+          <h4 style="font-size:.8rem;font-weight:700;color:var(--gray-600);margin-bottom:8px;">Key Responsibilities</h4>
+          <ul class="resp-list" id="jd-responsibilities"></ul>
+          <div class="divider"></div>
+          <h4 style="font-size:.8rem;font-weight:700;color:var(--gray-600);margin-bottom:8px;">Keywords</h4>
+          <div class="chip-group" id="jd-keywords"></div>
+        </div>
+
+      </div><!-- /left -->
+
+      <!-- Right column -->
+      <div>
+
+        <!-- Skill Gap -->
+        <div class="section-card fade-up">
+          <h3>⚖️ Skill Gap Analysis</h3>
+          <p class="section-sub">How your resume aligns with the job requirements</p>
+
+          <div class="match-gauge-wrap">
+            <div class="gauge-circle" id="gauge-circle">—%</div>
+            <div class="gauge-info">
+              <h4 id="readiness-level">—</h4>
+              <p id="recommendation-text">—</p>
+              <div class="gauge-bar-wrap">
+                <div class="gauge-bar-track">
+                  <div class="gauge-bar-fill" id="gauge-bar" style="width:0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-two-col">
+            <div class="skill-col">
+              <h4>✅ Matching Skills</h4>
+              <div class="chip-group" id="matching-skills"></div>
+              <p id="no-matching" style="font-size:.78rem;color:var(--gray-400);display:none;">No matching skills found.</p>
+            </div>
+            <div class="skill-col">
+              <h4>❌ Missing Skills</h4>
+              <div class="chip-group" id="missing-skills"></div>
+              <p id="no-missing" style="font-size:.78rem;color:var(--green-600);display:none;">Great! No critical skill gaps.</p>
+            </div>
+          </div>
+
+          <div id="exp-gap-note" style="margin-top:16px;font-size:.82rem;color:var(--gray-500);display:none;"></div>
+        </div>
+
+        <!-- Interview Questions -->
+        <div class="section-card fade-up">
+          <h3>❓ Interview Questions</h3>
+          <p class="section-sub">Personalised questions based on your profile and the role</p>
+
+          <div id="difficulty-badge-wrap"></div>
+
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="technical" id="tab-technical">💻 Technical</button>
+            <button class="tab-btn" data-tab="hr"        id="tab-hr">🤝 HR</button>
+            <button class="tab-btn" data-tab="project"   id="tab-project">📁 Project</button>
+            <button class="tab-btn" data-tab="gap"       id="tab-gap">🔧 Skill Gap</button>
+          </div>
+
+          <div class="tab-panel active" id="panel-technical">
+            <div class="q-category">
+              <div class="q-category-header q-cat-tech">
+                💻 Technical Questions
+                <span class="q-count" id="tech-count">0</span>
+              </div>
+              <ul class="q-list" id="q-technical"></ul>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="panel-hr">
+            <div class="q-category">
+              <div class="q-category-header q-cat-hr">
+                🤝 HR &amp; Behavioural Questions
+                <span class="q-count" id="hr-count">0</span>
+              </div>
+              <ul class="q-list" id="q-hr"></ul>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="panel-project">
+            <div class="q-category">
+              <div class="q-category-header q-cat-proj">
+                📁 Project-Based Questions
+                <span class="q-count" id="proj-count">0</span>
+              </div>
+              <ul class="q-list" id="q-project"></ul>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="panel-gap">
+            <div class="q-category">
+              <div class="q-category-header q-cat-gap">
+                🔧 Skill-Gap Bridging Questions
+                <span class="q-count" id="gap-count">0</span>
+              </div>
+              <ul class="q-list" id="q-gap"></ul>
+              <p id="no-gap-qs" style="font-size:.82rem;color:var(--green-600);display:none;padding:12px;">
+                🎉 No skill-gap questions — you're well-aligned with the role!
+              </p>
+            </div>
+          </div>
+
+        </div><!-- /questions card -->
+
+      </div><!-- /right -->
+
+    </div><!-- /grid -->
+
+  </main>
+
+  <!-- Error state (shown if results are missing) -->
+  <div id="error-state" style="display:none;" class="container">
+    <div style="text-align:center;padding:60px 0;">
+      <div style="font-size:3rem;margin-bottom:16px;">⚠️</div>
+      <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:8px;">No Results Found</h2>
+      <p style="color:var(--gray-500);margin-bottom:24px;">Please go back and upload your resume and job description first.</p>
+      <a href="index.html" class="btn-primary" style="display:inline-flex;width:auto;padding:12px 32px;">← Go Back to Upload</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    Personalized Interview Preparation System &nbsp;·&nbsp; Agentic AI Capstone Project &nbsp;·&nbsp; 2025–26
+  </footer>
+
+  <script src="js/results.js"></script>
+</body>
+</html>

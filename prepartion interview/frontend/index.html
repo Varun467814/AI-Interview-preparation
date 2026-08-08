@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interview Prep AI — Upload Resume & Job Description</title>
+  <meta name="description" content="Upload your resume and job description to get AI-powered skill gap analysis and personalized interview questions." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">🎯</span>
+      Interview Prep AI
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="results.html">Results</a>
+      <span class="nav-badge">AI Powered</span>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-badge">✨ Agentic AI System</div>
+    <h1>Personalized Interview<br /><span>Preparation System</span></h1>
+    <p>Upload your resume and job description. Our AI agents analyze your profile, identify skill gaps, and generate tailored interview questions in seconds.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">4</div><div class="lbl">AI Agents</div></div>
+      <div class="hero-stat"><div class="num">15+</div><div class="lbl">Questions</div></div>
+      <div class="hero-stat"><div class="num">100%</div><div class="lbl">Personalized</div></div>
+      <div class="hero-stat"><div class="num">&lt;10s</div><div class="lbl">Analysis Time</div></div>
+    </div>
+  </section>
+
+  <!-- ── Upload Form ── -->
+  <main class="container">
+    <div class="upload-card fade-up">
+      <h2>Analyze Your Profile</h2>
+      <p class="subtitle">Upload your files below — supported formats: <strong>PDF, DOCX, TXT</strong></p>
+
+      <form id="upload-form" enctype="multipart/form-data">
+        <div class="form-grid">
+
+          <!-- Resume drop zone -->
+          <div class="form-group">
+            <label for="resume-file">📄 Your Resume</label>
+            <div class="drop-zone" id="resume-drop">
+              <div class="drop-icon">📄</div>
+              <div class="drop-label">Click or drag &amp; drop</div>
+              <div class="drop-hint">PDF, DOCX, or TXT • Max 5 MB</div>
+              <div class="file-name" id="resume-fname"></div>
+              <input type="file" id="resume-file" name="resume" accept=".pdf,.docx,.txt" required />
+            </div>
+          </div>
+
+          <!-- JD drop zone -->
+          <div class="form-group">
+            <label for="jd-file">📋 Job Description</label>
+            <div class="drop-zone" id="jd-drop">
+              <div class="drop-icon">📋</div>
+              <div class="drop-label">Click or drag &amp; drop</div>
+              <div class="drop-hint">PDF, DOCX, or TXT • Max 5 MB</div>
+              <div class="file-name" id="jd-fname"></div>
+              <input type="file" id="jd-file" name="job_description" accept=".pdf,.docx,.txt" required />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Target role -->
+        <div class="form-group" style="margin-top:20px;">
+          <label for="target-role">🎯 Target Role (optional)</label>
+          <input
+            type="text"
+            id="target-role"
+            name="target_role"
+            placeholder="e.g. Data Scientist, Software Engineer, ML Engineer"
+          />
+        </div>
+
+        <!-- Error -->
+        <div class="error-box" id="error-box">⚠️ <span id="error-msg"></span></div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-primary" id="submit-btn">
+          <span id="btn-text">🚀 Analyze My Profile</span>
+        </button>
+
+      </form>
+    </div>
+
+    <!-- ── How it works ── -->
+    <section class="steps-section">
+      <h2>How It Works</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-icon">📤</div>
+          <div class="step-title">Upload Files</div>
+          <div class="step-desc">Upload your resume and the job description you're targeting.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-icon">🔍</div>
+          <div class="step-title">Resume Analysis</div>
+          <div class="step-desc">AI extracts your skills, projects, and experience from your resume.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-icon">⚖️</div>
+          <div class="step-title">Skill Gap Analysis</div>
+          <div class="step-desc">We compare your profile against the JD and identify gaps.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-icon">❓</div>
+          <div class="step-title">Question Generation</div>
+          <div class="step-desc">Personalised interview questions tailored to your profile and the role.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">5</div>
+          <div class="step-icon">📊</div>
+          <div class="step-title">Detailed Report</div>
+          <div class="step-desc">Get a full readiness score and actionable recommendations.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Personalized Interview Preparation System &nbsp;·&nbsp; Agentic AI Capstone Project &nbsp;·&nbsp; 2025–26
+  </footer>
+
+  <script src="js/upload.js"></script>
+</body>
+</html>
